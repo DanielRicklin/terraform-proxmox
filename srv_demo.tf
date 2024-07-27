@@ -8,7 +8,7 @@ resource "proxmox_vm_qemu" "srv_demo" {
   # name  = "srv-demo-${count.index + 1}"
   name        = "srv-demo-1"
   target_node = "pve"
-  clone       = "ubuntu-noble-cloud-template2"
+  clone       = "ubuntu-noble-cloud-template"
   full_clone  = true
 
   agent = 1

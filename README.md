@@ -32,3 +32,11 @@ qm set 6000 --net0 model=virtio,tag=150,bridge=vmbr0
 terraform init
 terraform apply -auto-approve
 ```
+
+## Destroy VM
+
+```
+terraform state list
+terraform plan -destroy -target proxmox_vm_qemu.srv_demo["srv-demo-1"]
+terraform destroy -auto-approve
+```
