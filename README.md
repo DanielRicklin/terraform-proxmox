@@ -25,3 +25,10 @@ qm set 6000 --net0 model=virtio,tag=150,bridge=vmbr0
 3. Expand the VM disk size to a suitable size (suggested 10 GB)
 4. Create the Cloud-Init template
 5. Deploy new VMs by cloning the template (full clone)
+
+## Run terraform
+
+```
+terraform init
+terraform apply -auto-approve
+```
