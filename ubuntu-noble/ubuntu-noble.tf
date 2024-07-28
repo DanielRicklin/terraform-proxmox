@@ -3,10 +3,10 @@ variable "ssh_key" {
   sensitive = true
 }
 
-resource "proxmox_vm_qemu" "srv_demo" {
+resource "proxmox_vm_qemu" "ubuntu_noble" {
   # count = 2
-  # name  = "srv-demo-${count.index + 1}"
-  name        = "srv-demo-1"
+  # name  = "ubuntu-noble-${count.index + 1}"
+  name        = "ubuntu-noble-1"
   target_node = "pve"
   clone       = "ubuntu-noble-cloud-template"
   full_clone  = true
