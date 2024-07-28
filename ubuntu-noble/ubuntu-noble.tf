@@ -1,22 +1,20 @@
-variable "ssh_key" {
-  type      = string
-  sensitive = true
-}
-
 resource "proxmox_vm_qemu" "ubuntu_noble" {
   # count = 2
   # name  = "ubuntu-noble-${count.index + 1}"
-  name        = "ubuntu-noble-1"
+  name        = var.vm_name
   target_node = "pve"
   clone       = "ubuntu-noble-cloud-template"
   full_clone  = true
 
+  ciuser     = var.vm_user
+  cipassword = var.vm_password
+
   agent = 1
 
-  cores   = 2
+  cores   = var.vm_cores
   sockets = 1
   cpu     = "host"
-  memory  = 4096
+  memory  = var.vm_ram
 
   os_type = "cloud-init"
   scsihw  = "virtio-scsi-pci"
@@ -24,7 +22,7 @@ resource "proxmox_vm_qemu" "ubuntu_noble" {
   network {
     bridge = "vmbr0"
     model  = "virtio"
-    tag    = "150"
+    tag    = var.vm_vlan_tag
   }
 
   disks {
@@ -39,7 +37,7 @@ resource "proxmox_vm_qemu" "ubuntu_noble" {
       scsi0 {
         disk {
           storage = "DATA"
-          size    = "20G"
+          size    = var.vm_disk_size
         }
       }
     }
@@ -48,7 +46,7 @@ resource "proxmox_vm_qemu" "ubuntu_noble" {
   boot = "order=scsi0"
 
   #   ipconfig0  = "ip=10.1.192.${26 + count.index + 1}/29,gw=10.1.192.25"
-  ipconfig0 = "ip=dhcp"
+  ipconfig0 = var.vm_ipconfig
   # nameserver = "9.9.9.9"
 
   sshkeys = <<EOF
